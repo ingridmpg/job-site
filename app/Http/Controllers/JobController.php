@@ -23,19 +23,19 @@ class JobController extends Controller
     public function create() {
         return view('jobs.create');
     }
-// 2:24
+
     public function store(Request $request) {
         $formFields = $request->validate([
             'title' => 'required',
             'company' => ['required', Rule::unique('jobs', 'company')],
             'location' => 'required',
             'website' => 'required',
-            'email' => ['required', 'mail'],
+            'email' => ['required', 'email'],
             'tags' => 'required',
             'description' => 'required',
         ]);
         Job::create($formFields);
 
-        return redirect('/');
+        return redirect('/')->with('message', 'Job created successfully!');
     }
 }

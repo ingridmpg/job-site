@@ -9,6 +9,8 @@ class Job extends Model
 {
     use HasFactory;
 
+    // protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags']; // or add unguard in boot function
+
     public function scopeFilter ($query, array $filters) {
         if ($filters['tag'] ?? false) {
             $query->where('tags', 'like', '%' . request('tag') . '%');
