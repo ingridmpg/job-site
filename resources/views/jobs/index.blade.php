@@ -13,5 +13,9 @@
         @endforeach
         
     </div>
+    <!-- pagination -->
+    <div class="mt-6 p-4">
+        {{$jobs->links()}}
+    </div>
 </x-layout>
 

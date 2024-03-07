@@ -10,7 +10,7 @@ class JobController extends Controller
 {
     public function index() {
         return view('jobs.index', [
-            'jobs' => Job::latest()->filter(request(['tag', 'search']))->get()
+            'jobs' => Job::latest()->filter(request(['tag', 'search']))->simplePaginate(4)
         ]);
     }
 
@@ -34,6 +34,11 @@ class JobController extends Controller
             'tags' => 'required',
             'description' => 'required',
         ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+        
         Job::create($formFields);
 
         return redirect('/')->with('message', 'Job created successfully!');
