@@ -25,6 +25,14 @@ Route::get('/jobs/create', [JobController::class, 'create']);
 // store job data
 Route::post('/jobs', [JobController::class, 'store']);
 
+// show edit forn
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
+
+// Update Job
+Route::put('/jobs/{job}', [JobController::class, 'update']);
+
+// Delete Job
+Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
 
 // single job - this route shoud be in the end of the routes list

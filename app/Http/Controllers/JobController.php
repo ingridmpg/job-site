@@ -43,4 +43,35 @@ class JobController extends Controller
 
         return redirect('/')->with('message', 'Job created successfully!');
     }
+
+    //Show Edit Form
+    public function edit(Job $job) {
+        return view('jobs.edit', ['job' => $job]);
+    }
+
+    public function update(Request $request, Job $job) {
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+        
+        $job->update($formFields);
+
+        return back()->with('message', 'Job updated successfully!');
+    }
+
+    // Delete Job
+    public function destroy(Job $job) {
+        $job->delete();
+        return redirect('/')->with('message', 'Job deleted successfully!');
+    } 
 }
