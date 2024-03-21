@@ -11,7 +11,7 @@ class Job extends Model
 
     // protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags']; // or add unguard in boot function
 
-    public function scopeFilter ($query, array $filters) {
+    public function scopeFilter($query, array $filters) {
         if ($filters['tag'] ?? false) {
             $query->where('tags', 'like', '%' . request('tag') . '%');
         }
@@ -20,5 +20,9 @@ class Job extends Model
                 ->orWhere('description', 'like', '%' . request('search') . '%')
                 ->orWhere('tags', 'like', '%' . request('search') . '%');
         }
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
